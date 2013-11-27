@@ -1,0 +1,10 @@
+package data;
+
+public class Type extends AbstractObject {
+
+	public Type(String d) {
+		super(d);
+		// TODO Auto-generated constructor stub
+	}
+
+}

@@ -1,0 +1,7 @@
+package core;
+
+public class Attendee {
+	String name;
+	boolean here;
+
+}

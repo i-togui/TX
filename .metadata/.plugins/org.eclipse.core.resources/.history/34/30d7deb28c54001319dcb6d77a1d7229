@@ -1,0 +1,11 @@
+package core;
+
+import java.util.ArrayList;
+
+public class Sequence {
+	float start;
+	Attendee whoSpeacking;
+	Question question;
+	ArrayList<Item> typeList;
+	ArrayList<Item> criteriaList;
+}

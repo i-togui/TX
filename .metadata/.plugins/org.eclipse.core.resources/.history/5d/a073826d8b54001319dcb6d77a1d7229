@@ -1,0 +1,12 @@
+package core;
+
+public class Attendee {
+	String name;
+	boolean here = false;
+	boolean isTheReporter = true;
+	public Attendee(String name) 
+	{
+		this.name = name;
+	}
+	
+}

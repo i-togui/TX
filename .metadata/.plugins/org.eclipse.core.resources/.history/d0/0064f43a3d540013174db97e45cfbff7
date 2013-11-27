@@ -1,0 +1,14 @@
+/**
+ * 
+ */
+package data;
+
+/**
+ * @author itogui
+ *
+ */
+public abstract class AbstractObject {
+	int id;
+	String data;
+	
+}

@@ -1,0 +1,9 @@
+package core;
+
+public class Sequence {
+	float start;
+	Attendee whoSpeacking;
+	Question question;
+	ArrayList<Item> listType;
+	
+}

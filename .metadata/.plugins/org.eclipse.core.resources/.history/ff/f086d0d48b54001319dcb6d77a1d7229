@@ -1,0 +1,10 @@
+package core;
+
+public class Question {
+	String question;
+
+	public Question(String data) {
+		this.data = data;
+	}
+	
+}

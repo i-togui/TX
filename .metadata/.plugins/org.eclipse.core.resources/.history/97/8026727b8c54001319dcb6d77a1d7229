@@ -1,0 +1,8 @@
+package core;
+
+public class Sequence {
+	float start;
+	Attendee whoSpeacking;
+	Question question;
+	Item type;
+}

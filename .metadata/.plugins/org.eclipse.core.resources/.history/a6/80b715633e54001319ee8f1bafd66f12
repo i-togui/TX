@@ -1,0 +1,11 @@
+package data;
+
+public class Criteria extends AbstractObject 
+{
+
+	public Criteria(String d) 
+	{
+		super(d);
+	}
+
+}

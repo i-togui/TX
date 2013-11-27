@@ -1,0 +1,22 @@
+/**
+ * 
+ */
+package data;
+
+/**
+ * @author itogui
+ *
+ */
+public abstract class Item {
+	String data;
+	Item(String d)
+	{
+		this.data = d;
+	}
+	@Override
+	public String toString() 
+	{
+		return data;
+	}
+	
+}
