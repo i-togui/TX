@@ -1,5 +1,0 @@
-package core;
-
-public class Question {
-	String data;
-}

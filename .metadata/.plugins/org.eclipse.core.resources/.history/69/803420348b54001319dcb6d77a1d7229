@@ -1,7 +1,0 @@
-package core;
-
-public class Attendee {
-	String name;
-	String here;
-
-}
