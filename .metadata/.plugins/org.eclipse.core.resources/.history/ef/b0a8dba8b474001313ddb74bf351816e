@@ -1,0 +1,124 @@
+package com.example.mm_project;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
+
+import core.Meeting;
+
+import android.os.Bundle;
+import android.provider.CalendarContract;
+import android.provider.CalendarContract.Events;
+import android.app.Activity;
+import android.content.Intent;
+import android.util.Log;
+import android.view.Menu;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
+
+public class AddMeeting extends Activity {
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_add_meeting);
+		init_list();
+		this.setFinishOnTouchOutside(false);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.add_meeting, menu);
+		return true;
+	}
+	ArrayList<String> ListeAttendee=new ArrayList<String>();
+	ArrayAdapter<String> adapterListeAttendee;
+	ArrayList<String> ListeQuestion=new ArrayList<String>();
+	ArrayAdapter<String> adapterListeQuestion;    
+	ArrayList<String> ListeMeetingDirectory=new ArrayList<String>();
+	ArrayList<String> ListeMeetingName=new ArrayList<String>();
+	ArrayAdapter<String> adapterListeMeeting;
+	
+	
+	public void init_list()
+	{
+		adapterListeAttendee=new ArrayAdapter<String>(this,
+	            android.R.layout.simple_list_item_1,
+	            ListeAttendee);
+		adapterListeQuestion=new ArrayAdapter<String>(this,
+	            android.R.layout.simple_list_item_1,
+	            ListeQuestion);
+		
+		ListView lvListeAttendee = (ListView)findViewById(R.id.attendee_list);
+	    lvListeAttendee.setAdapter(adapterListeAttendee);
+	    
+	    ListView lvListeQuestion = (ListView)findViewById(R.id.question_list);
+	    lvListeQuestion.setAdapter(adapterListeQuestion);
+	}
+	public void add_question(View v)
+	{
+		//lvListeAttendee.add
+		TextView text = (TextView) findViewById(R.id.text_question);
+		ListeQuestion.add(text.getText().toString());
+		adapterListeQuestion.notifyDataSetChanged();
+		text.setText("");
+	}
+	public void add_attendee(View v)
+	{
+		//lvListeAttendee.add
+		TextView text = (TextView) findViewById(R.id.text_attendee);
+		ListeAttendee.add(text.getText().toString());
+		adapterListeAttendee.notifyDataSetChanged();
+		text.setText("");
+	}
+	public void createMeeting(View v)
+	{
+		TextView text = (TextView) findViewById(R.id.title);
+		String title = text.getText().toString();
+		
+		text = (TextView) findViewById(R.id.place);
+		String place = text.getText().toString();
+		
+		DatePicker dp = (DatePicker) findViewById(R.id.dpResult);
+		TimePicker tm = (TimePicker) findViewById(R.id.timePicker1);
+		Calendar rightNow = Calendar.getInstance();
+		rightNow.set(dp.getYear(), dp.getMonth(), dp.getDayOfMonth(), tm.getCurrentHour(), tm.getCurrentMinute());
+		long time = rightNow.getTimeInMillis();
+		//time = (int) (time / 1000L);
+		core.Meeting m = new Meeting(title, new Timestamp(time), place, core.Attendee.convertArray2Attendees(this.ListeAttendee), core.Question.convertArray2Questions(this.ListeQuestion)); 
+		
+		MeetingListActivity.refresh();
+		addToCalendar(m);
+		Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_LONG).show();
+		this.finish();
+	}
+	
+	public void addToCalendar(Meeting m)
+	{
+		
+		Calendar beginTime = Calendar.getInstance();
+		beginTime.set(2012, 0, 19, 7, 30);
+		Calendar endTime = Calendar.getInstance();
+		endTime.set(2012, 0, 19, 8, 30);
+		Intent intent = new Intent(Intent.ACTION_INSERT)
+		    .setData(Events.CONTENT_URI)
+		    .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis())
+		    .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis())
+		    .putExtra(Events.TITLE, "Meeting - "+m.getTitle())
+		    .putExtra(Events.DESCRIPTION, "Group class")
+		    .putExtra(Events.EVENT_LOCATION, m.getPlace())
+		    .putExtra(Events.AVAILABILITY, Events.AVAILABILITY_BUSY);
+		startActivity(intent);
+	}
+	
+	public void closeAct(View v)
+	{
+		this.finish();
+	}
+}

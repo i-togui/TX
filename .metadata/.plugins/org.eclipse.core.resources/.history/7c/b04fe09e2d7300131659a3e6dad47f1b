@@ -1,0 +1,411 @@
+package com.example.mm_project;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import core.Attendee;
+import core.ListItem;
+import core.Meeting;
+import core.Question;
+import core.Sequence;
+import core.Tools;
+import android.R.string;
+import android.media.MediaRecorder;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.SystemClock;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.util.Log;
+import android.view.Menu;
+import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Chronometer;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class RecorderActivity extends Activity implements RadioGroup.OnCheckedChangeListener{
+	Meeting currentMeeting;
+	ArrayList<String> ListeAttendee=new ArrayList<String>();
+	ArrayAdapter<String> adapterListeAttendee;
+	public static int selectedQuestion=-1;
+	public static int selectedAttendee=-1;
+	AlertDialog levelDialog;
+	int state_play = 0;
+	String reporter;
+	
+	
+	static RadioGroup rg1;
+	static RadioGroup rg2;
+	private static String lastQuestion;
+	private static String lastWhoSpeaked;
+	
+	ArrayList<String> ListeQuestion=new ArrayList<String>();
+	ArrayAdapter<String> adapterListeQuestion;    
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(R.layout.activity_recorder);
+		this.setFinishOnTouchOutside(false);
+		Bundle extras = getIntent().getExtras();
+		this.currentMeeting = new Meeting(extras.getString("meeting"));
+		
+		
+		TextView text = (TextView) findViewById(R.id.meeting_name);
+		text.setText(currentMeeting.getTitle());
+	
+		
+		
+		
+		
+		
+        for(Attendee a: currentMeeting.getAttendeesList())
+	    {
+	    	RadioButton rb = new RadioButton(this);
+	        rb.setText(a.getName());
+	        RadioGroup rg = (RadioGroup) findViewById(R.id.items_list_attendees);
+	        rg.setOnCheckedChangeListener(this);
+	        LinearLayout.LayoutParams lp=new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+	        rg.addView(rb, 0, lp);
+	    }
+        for(Question q: currentMeeting.getQuestionsList())
+	    {
+        	RadioButton rb = new RadioButton(this);
+	        rb.setText(q.getQuestion());
+	        RadioGroup rg = (RadioGroup) findViewById(R.id.items_list_Questions);
+	        rg.setOnCheckedChangeListener(this);
+	        LinearLayout.LayoutParams lp=new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+	        rg.addView(rb, 0, lp);
+	    }
+		
+	}
+	Chronometer chronometer;
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.recorder, menu);
+		return true;
+	}
+	public void addQuestion(View v)
+	{
+		//lvListeAttendee.add
+		TextView text = (TextView) findViewById(R.id.text_question);
+		RadioButton rb = new RadioButton(this);
+        rb.setText(text.getText().toString());
+        RadioGroup rg = (RadioGroup) findViewById(R.id.items_list_Questions);
+        LinearLayout.LayoutParams lp=new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        rg.addView(rb, 0, lp);
+		//MAJ stuff
+        this.currentMeeting.addQuestion(new Question(text.getText().toString()));
+        text.setText("");
+	}
+	public void addAttendee(View v)
+	{
+		//lvListeAttendee.add
+		TextView text = (TextView) findViewById(R.id.text_attendee);
+		
+		RadioButton rb = new RadioButton(this);
+        rb.setText(text.getText().toString());
+        RadioGroup rg = (RadioGroup) findViewById(R.id.items_list_attendees);
+        LinearLayout.LayoutParams lp=new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        rg.addView(rb, 0, lp);
+        this.currentMeeting.addAttendee(new Attendee(text.getText().toString()));
+		//MAJ stuff
+        text.setText("");
+	}
+	
+	
+	public void removeQuestion(View v)
+	{
+		rg1 = (RadioGroup) findViewById(R.id.items_list_Questions);
+    	if(rg1.getCheckedRadioButtonId()!=-1)
+    	{
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	
+			builder.setTitle("Remove this Question?");
+			builder.setMessage("Do you want confirm this action?");
+	
+			builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+	
+			    public void onClick(DialogInterface dialog, int which) {
+			    		int id= rg1.getCheckedRadioButtonId();
+			    		RadioButton radioButton = (RadioButton)rg1.findViewById(id);
+					    if(currentMeeting.getQuestionsList().size()>1)
+					    {
+						    rg1.removeView((View)radioButton);
+						    currentMeeting.removeQuestion(radioButton.getText().toString());
+						    Toast.makeText(getApplicationContext(), "State : Done", Toast.LENGTH_LONG).show();
+					    	dialog.dismiss();
+					    }
+					    else
+					    	Toast.makeText(getApplicationContext(), "Forbiden Action : you can't remove all Questions!", Toast.LENGTH_LONG).show();
+			    		
+			    }
+	
+			});
+	
+			builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+			    @Override
+			    public void onClick(DialogInterface dialog, int which) {
+			       dialog.dismiss();
+			    }
+			});
+	
+			AlertDialog alert = builder.create();
+			alert.show();
+    	}
+    	else
+    		Toast.makeText(getApplicationContext(), "Choose a Question first!", Toast.LENGTH_LONG).show();
+    	}	
+
+	public void removeAttendee(View v)
+	{
+		rg1 = (RadioGroup) findViewById(R.id.items_list_attendees);
+		
+    	if(rg1.getCheckedRadioButtonId()!=-1)
+    	{
+    		
+	    		
+				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		
+				builder.setTitle("Remove this Attendee?");
+				builder.setMessage("Do you want confirm this action?");
+		
+				builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+		
+				    public void onClick(DialogInterface dialog, int which) {
+				    	int id= rg1.getCheckedRadioButtonId();
+				    	
+				    	RadioButton radioButton = (RadioButton)rg1.findViewById(id);
+				    	if(currentMeeting.isTheReporter(radioButton.getText().toString()))
+			    		{
+			    			Toast.makeText(getApplicationContext(), "Forbiden Action : you can't remove the reporter!", Toast.LENGTH_LONG).show();
+			    		}
+			    		else
+			    		{
+			    			if(currentMeeting.getAttendeesList().size()>1)
+			    			{
+						    	rg1.removeView((View)radioButton);
+							    currentMeeting.removeAttendee(radioButton.getText().toString());
+								    Toast.makeText(getApplicationContext(), "State : Done", Toast.LENGTH_LONG).show();
+							    	dialog.dismiss();
+			    			}
+			    			else
+			    			{
+			    				Toast.makeText(getApplicationContext(), "Forbiden Action : you can't remove all the attendees!", Toast.LENGTH_LONG).show();
+			    			}
+			    		}
+				    }
+		
+				});
+		
+				builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+				    @Override
+				    public void onClick(DialogInterface dialog, int which) {
+				       dialog.dismiss();
+				    }
+				});
+		
+				AlertDialog alert = builder.create();
+				alert.show();
+    	}
+    	else
+    		Toast.makeText(getApplicationContext(), "Choose a Question first!", Toast.LENGTH_LONG).show();
+    	}	
+	public void playOrStop(View v)
+	{
+		switch(state_play)
+		{
+			case 0:chooseReporter();break;
+			case 1:startPlaying();break;
+			case 2:stopPlaying();break;
+		}
+		
+	}
+	void startPlaying()
+	{
+		rg1 = (RadioGroup) findViewById(R.id.items_list_Questions);
+		rg2 = (RadioGroup) findViewById(R.id.items_list_attendees);
+		if(rg1.getCheckedRadioButtonId()!=-1 && rg2.getCheckedRadioButtonId()!=-1)
+		{
+			int id= rg1.getCheckedRadioButtonId();
+    		RadioButton radioButton = (RadioButton)rg1.findViewById(id);
+    		RecorderActivity.lastQuestion = radioButton.getText().toString();
+    		
+    		id= rg2.getCheckedRadioButtonId();
+    		radioButton = (RadioButton)rg2.findViewById(id);
+    		RecorderActivity.lastWhoSpeaked = radioButton.getText().toString();
+			
+    		state_play = 2;
+			ImageView img = (ImageView)findViewById(R.id.imgView);
+			img.setImageResource(R.drawable.stop);
+			startRecording();
+			chronometer = (Chronometer) findViewById(R.id.chronometer);
+			chronometer.setBase(SystemClock.elapsedRealtime());
+			chronometer.start();
+			currentMeeting.startRecordSequences();
+		}
+		else
+		{
+			 Toast.makeText(getApplicationContext(), "Please choose one Question & one Attendee first", Toast.LENGTH_LONG).show();
+		}
+	}
+	void stopPlaying()
+	{
+		stopRecording();
+		chronometer.stop();
+		long startOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
+		Question question=new Question(RecorderActivity.lastQuestion);
+		Attendee whoSpeacking=new Attendee(RecorderActivity.lastWhoSpeaked);
+		TextView text = (TextView) findViewById(R.id.text_com);
+		this.currentMeeting.appendRecord(new Sequence(startOffset, whoSpeacking, question, text.getText().toString()));
+		currentMeeting.stopRecordSequences();
+		currentMeeting.finishrecordingStep();
+		Toast.makeText(RecorderActivity.this, "Recording Saved..", Toast.LENGTH_SHORT).show();
+		this.finish();
+	}
+	
+	public void chooseReporter()
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Select The Reporter");
+        rg1 = (RadioGroup) findViewById(R.id.items_list_attendees);
+        
+        int count = rg1.getChildCount();
+        
+        CharSequence[] items = {};
+        final ArrayList<String> listOfRadioButtons = new ArrayList<String>();
+        for (int i=0;i<count;i++) {
+            View o = rg1.getChildAt(i);
+            
+            if (o instanceof RadioButton) {
+            	listOfRadioButtons.add(((RadioButton)o).getText().toString()) ;
+            }
+        }
+        CharSequence[] cs = listOfRadioButtons.toArray(new CharSequence[listOfRadioButtons.size()]);
+        builder.setSingleChoiceItems(cs, -1, new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int item) {
+                       levelDialog.dismiss();    
+            reporter = listOfRadioButtons.get(item);
+            currentMeeting.setRepporter(reporter);
+            state_play = 1;
+        }
+        });
+        
+        levelDialog = builder.create();
+        levelDialog.show();
+	}
+
+	@Override
+	public void onCheckedChanged(RadioGroup group, int checkedId) {
+		// TODO Auto-generated method stub
+		if (state_play == 2)
+		{
+			long startOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
+			
+			
+    		Question question=new Question(RecorderActivity.lastQuestion);
+			Attendee whoSpeacking=new Attendee(RecorderActivity.lastWhoSpeaked);
+			
+    		TextView text = (TextView) findViewById(R.id.text_com);
+    		this.currentMeeting.appendRecord(new Sequence(startOffset, whoSpeacking, question, text.getText().toString()));
+    		text.setText("");
+    		Log.e("Sommething Changed!","Something changed");
+    		
+    		rg1 = (RadioGroup) findViewById(R.id.items_list_Questions);
+			int id= rg1.getCheckedRadioButtonId();
+    		RadioButton radioButton = (RadioButton)rg1.findViewById(id);
+    		RecorderActivity.lastQuestion = radioButton.getText().toString();
+    		
+    		rg1 = (RadioGroup) findViewById(R.id.items_list_attendees);
+			id= rg1.getCheckedRadioButtonId();
+    		radioButton = (RadioButton)rg1.findViewById(id);
+    		RecorderActivity.lastWhoSpeaked = radioButton.getText().toString();
+		}
+	}
+
+
+
+
+
+
+	private MediaRecorder recorder = null;
+	private void startRecording() 
+	{
+	    recorder = new MediaRecorder();
+	    recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+	    recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+	    recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB); 
+	    recorder.setOutputFile(getFilename());
+	    recorder.setOnErrorListener(errorListener);
+	    recorder.setOnInfoListener(infoListener);
+	    try 
+	    {
+	        recorder.prepare();
+	        recorder.start();
+	        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+	        Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+	        r.play();
+	    } 
+	    catch (IllegalStateException e) 
+	    {
+	        e.printStackTrace();
+	    } 
+	    catch (IOException e) 
+	    {
+	        e.printStackTrace();
+	    }
+	}
+	private void stopRecording() {
+    	if (null != recorder) {
+	    	recorder.stop();
+	    	recorder.reset();
+	    	recorder.release();
+	    	recorder = null;
+	    }
+	}
+	private MediaRecorder.OnErrorListener errorListener = new MediaRecorder.OnErrorListener() {
+	    @Override
+	    public void onError(MediaRecorder mr, int what, int extra) {
+	        Toast.makeText(RecorderActivity.this, "Error: " + what + ", " + extra, Toast.LENGTH_SHORT).show();
+	    }
+	};
+	private MediaRecorder.OnInfoListener infoListener = new MediaRecorder.OnInfoListener() {
+	    @Override
+	    public void onInfo(MediaRecorder mr, int what, int extra) {
+	        Toast.makeText(RecorderActivity.this, "Warning: " + what + ", " + extra, Toast.LENGTH_SHORT).show();
+	    }
+	};
+	private String getFilename() {
+		String fileName = Tools.meetings_directory + "/" + this.currentMeeting.getDirectoryName() + "/audio.amr";
+    	File file = new File(fileName);
+	    if (!file.exists()) {
+	        try {
+				file.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }
+	    return fileName;
+	}
+
+
+
+
+}

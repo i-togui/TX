@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MM-Project</string>
+    <string name="title_meeting_detail">Meeting Detail</string>
+    <string name="title_activity_add_meeting">AddMeeting</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_manage_items">ManageItems</string>
+    <string name="title_activity_color_picker_dialog">ColorPickerDialog</string>
+    <string name="title_activity_web_view">WebView</string>
+    <string name="title_activity_web">WebActivity</string>
+    <string name="title_activity_recorder">RecorderActivity</string>
+    <string name="title_activity_tag">TagActivity</string>
+
+</resources>

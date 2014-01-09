@@ -1,0 +1,178 @@
+   
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:id="@+id/scroll"
+    tools:context=".MeetingDetailFragment" >
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="40dp"
+            android:layout_marginLeft="40dp" >
+
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" >
+                                <TextView
+						            android:id="@+id/textView3"
+						            android:layout_width="wrap_content"
+						            android:layout_height="wrap_content"
+						            android:layout_gravity="right"
+						            android:gravity="right"
+						            android:layout_weight="0.3"
+						            android:text="Meeting Name : "
+						            android:textAppearance="?android:attr/textAppearanceLarge"
+						             />
+
+                                <TextView
+						            android:id="@+id/title"
+						            android:layout_width="wrap_content"
+						            android:layout_height="wrap_content"
+						            android:layout_gravity="left"
+						            android:gravity="left"
+						            android:layout_weight="0.3"
+						            android:text="xx"
+						            android:textAppearance="?android:attr/textAppearanceLarge"
+						             />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right" >
+
+                                <TextView
+						            android:id="@+id/textView4"
+						            android:layout_width="wrap_content"
+						            android:layout_height="wrap_content"
+						            android:layout_weight="0.3"
+						            android:layout_gravity="right"
+						            android:gravity="right"
+						            android:text="Place : "
+						            android:textAppearance="?android:attr/textAppearanceLarge"
+						            />
+
+								<TextView
+						            android:id="@+id/place"
+						            android:layout_width="wrap_content"
+						            android:layout_height="wrap_content"
+						            android:layout_gravity="left"
+						            android:gravity="left"
+						            android:layout_weight="0.3"
+						            android:text="xx"
+						            android:textAppearance="?android:attr/textAppearanceLarge"
+						            />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow4"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" >
+                                <TextView
+						            android:id="@+id/textView5"
+						            android:layout_width="wrap_content"
+						            android:layout_height="wrap_content"
+						            android:layout_weight="0.3"
+						            android:text="Plannified Date : "
+					            	android:layout_gravity="right"
+						            android:gravity="right"
+						            android:textAppearance="?android:attr/textAppearanceLarge"
+						            />
+                                    <TextView
+						            android:id="@+id/date"
+						            android:layout_width="wrap_content"
+						            android:layout_height="wrap_content"
+						            android:layout_weight="0.3"
+						            android:text="xx"
+						            android:layout_gravity="left"
+						            android:gravity="left"
+						            android:textAppearance="?android:attr/textAppearanceLarge"
+						            />
+
+            </TableRow>
+	        <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp"
+                    android:weightSum="2.0">
+
+	                  <LinearLayout
+	                      android:layout_width="wrap_content"
+	                      android:layout_height="wrap_content"
+	                      android:gravity="center"
+	                      android:layout_weight="1.0"
+	                      android:weightSum="1.0"
+	                      android:layout_marginRight="40dp"
+	                      android:orientation="vertical" >
+
+	                          <TextView
+						            android:id="@+id/textView2"
+						            android:layout_width="wrap_content"
+						            android:layout_height="wrap_content"
+						            android:layout_weight="0.2"
+						            android:text="Questions List"
+   						            android:textSize="40sp"
+						            android:textAppearance="?android:attr/textAppearanceLarge"
+						             />
+	                          <ListView
+				    				android:id="@+id/question_list"
+				    				android:layout_width="fill_parent"
+						            android:layout_height="350dp"
+						            android:layout_marginBottom="20dp"
+						            android:background="@color/whitegrey"
+						            android:layout_weight="0.6"  />
+
+						          
+	                 </LinearLayout>   
+	                  <LinearLayout
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:gravity="center"
+                      android:layout_weight="1.0"
+                      android:layout_marginLeft="40dp"
+                      android:weightSum="1.0"
+                      android:orientation="vertical" >
+
+	                          <TextView
+						            android:id="@+id/textView2"
+						            android:layout_width="wrap_content"
+						            android:layout_height="wrap_content"
+						            android:layout_weight="0.2"
+						            android:text="Attendees List"
+   						            android:textSize="40sp"
+						            android:textAppearance="?android:attr/textAppearanceLarge"
+						             />
+						        <ListView
+				    				android:id="@+id/attendee_list"
+				    				android:layout_width="fill_parent"
+						            android:layout_height="350dp"
+						            android:layout_marginBottom="20dp"
+						            android:background="@color/whitegrey"
+						            android:layout_weight="0.6"/>
+						          
+	                 </LinearLayout>  
+	                  
+                 </LinearLayout>
+               		  <LinearLayout
+	                  android:id="@+id/dynamicBloc"
+                      android:layout_width="fill_parent"
+                      android:layout_height="130dp"
+                      android:background="@drawable/border_grey"
+                      android:orientation="horizontal">
+	                  </LinearLayout>
+                </TableLayout>
+
+		</ScrollView>
+    

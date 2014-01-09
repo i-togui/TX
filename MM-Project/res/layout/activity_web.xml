@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="1000dp"
+    android:layout_height="800dp"
+  	android:layout_margin="20dp"
+  	android:padding="20dp"
+  	
+    tools:context=".WebActivity" >
+    	<LinearLayout
+        android:id="@+id/part1"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+		android:orientation="vertical" >
+									<TextView
+						            android:id="@+id/title"
+						            android:layout_width="wrap_content"
+						            android:layout_height="wrap_content"
+						            android:text="XXXXXXX"
+						            android:layout_gravity="center_horizontal"
+						            android:gravity="center"
+						            android:layout_marginBottom="40dp"
+						            android:textAppearance="?android:attr/textAppearanceLarge"
+						             />
+
+									<WebView
+									    android:id="@+id/customWebView"
+									    android:layout_width="950dp"
+									    android:layout_height="500dp" />
+		<Button
+            android:id="@+id/buttonClose"
+            style="@style/AppTheme"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Close"
+            android:layout_margin="40dp"
+            android:onClick="closeAct"
+             />   
+		</LinearLayout>
+
+</LinearLayout>

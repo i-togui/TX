@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.mm_project"
+    android:uiOptions="splitActionBarWhenNarrow"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="17"
+        android:targetSdkVersion="17" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.RECORD_AUDIO" />
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        android:uiOptions="splitActionBarWhenNarrow" >
+        <activity android:screenOrientation="landscape" android:configChanges="orientation|keyboardHidden"
+            android:name="com.example.mm_project.MeetingListActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:screenOrientation="landscape" android:configChanges="orientation|keyboardHidden"
+            android:name="com.example.mm_project.MeetingDetailActivity"
+            android:label="@string/title_meeting_detail"
+            android:parentActivityName=".MeetingListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MeetingListActivity" />
+        </activity>
+        <activity android:screenOrientation="landscape" android:configChanges="orientation|keyboardHidden"
+            android:name="com.example.mm_project.AddMeeting"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:label="@string/title_activity_add_meeting"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity android:screenOrientation="landscape" android:configChanges="orientation|keyboardHidden"
+            android:name="com.example.mm_project.ManageItems"
+            android:label="@string/title_activity_manage_items"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity android:screenOrientation="landscape" android:configChanges="orientation|keyboardHidden"
+            android:name="com.example.mm_project.ColorPickerDialog"
+            android:label="@string/title_activity_color_picker_dialog" >
+        </activity>
+        <activity android:screenOrientation="landscape" android:configChanges="orientation|keyboardHidden"
+            android:name="com.example.mm_project.WebView"
+            android:label="@string/title_activity_web_view"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity android:screenOrientation="landscape" android:configChanges="orientation|keyboardHidden"
+            android:name="com.example.mm_project.WebActivity"
+            android:label="@string/title_activity_web"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity android:screenOrientation="landscape" android:configChanges="orientation|keyboardHidden"
+            android:name="com.example.mm_project.RecorderActivity"
+            android:label="@string/title_activity_recorder"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity android:screenOrientation="landscape" android:configChanges="orientation|keyboardHidden"
+            android:name="com.example.mm_project.TagActivity"
+            android:label="@string/title_activity_tag"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+    </application>
+
+</manifest>
