@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,10 @@ import android.widget.Toast;
 
 
 import core.DummyContent;
+import core.Item;
+import core.ListItem;
 import core.Meeting;
+import core.Sequence;
 import core.Tools;
 
 /**
@@ -58,6 +62,7 @@ View.OnClickListener {
 
 	    super.onResume();
 	    MeetingDetailFragment.currentMeeting = MeetingDetailFragment.currentMeeting.reload();
+	    printMeetting();
 	    load_dynamic_component(MeetingDetailFragment.currentMeeting.getState(),rootView); 
 	   
 		
@@ -205,7 +210,11 @@ View.OnClickListener {
 				inflater.inflate(R.layout.layout_state_3, linearLayout);
 				ImageView im1 = (ImageView)rootView.findViewById(R.id.sendMail);
 				im1.setOnClickListener(this);
-				ImageView im2 = (ImageView)rootView.findViewById(R.id.viewRepport);
+/**
+ * Too add after
+				ImageView im5 = (ImageView)rootView.findViewById(R.id.sendWC);
+				im5.setOnClickListener(this);
+	**/			ImageView im2 = (ImageView)rootView.findViewById(R.id.viewRepport);
 				im2.setOnClickListener(this);
 		}
 	}
@@ -282,6 +291,26 @@ View.OnClickListener {
 	      case R.id.sendMail:
 	    	  sendMail();
 	    	  break;
+/**
+ * To add after
+ * <ImageView 
+            android:id="@+id/sendWC"
+		    android:layout_width="130dp"
+	        android:layout_height="130dp"
+	        android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="110dp"
+	        android:src="@drawable/share"
+	        />
+	         * 
+	         * 
+	         * 
+	      case R.id.sendWC:
+	    	  sendWC();
+	    	  break;
+
+	      
+**/	      
 	      case R.id.viewRepport:
 	    	  	currentMeeting.reportGeneration();
 	    	  	Uri uri  = Uri.parse("file://"+Tools.meetings_directory + "/" +this.currentMeeting.getDirectoryName() + "/rapport.pdf");
@@ -312,6 +341,28 @@ View.OnClickListener {
 	}
 	
 	
-	void refreshParent()
-	{}
+	void sendWC()
+	{
+		MeetingDetailFragment.currentMeeting.read_sequences();
+		ArrayList<Sequence> SL = MeetingDetailFragment.currentMeeting.sequencesList;
+		ListItem l = new ListItem("Windchill-Local", true);
+		ArrayList<String> result = new ArrayList();
+		for(Sequence seq : SL)
+		{
+			for(Item item : seq.getItemsList())
+			{
+				for(Item item_tmp: l.getList())
+				{
+					if(item.toString().compareTo(item_tmp.toString())==0)
+					{
+						if(result.contains(item_tmp.toString())==false)
+						{
+							result.add(item_tmp.toString());
+						}
+					}
+				}
+			}
+		}
+		Toast.makeText(this.getActivity().getApplicationContext(), "Composants : "+ result.toString(), Toast.LENGTH_LONG).show();
+	}
 }

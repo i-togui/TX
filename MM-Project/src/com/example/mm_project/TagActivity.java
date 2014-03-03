@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
@@ -144,48 +145,60 @@ public class TagActivity extends Activity implements OnClickListener, OnSeekBarC
     	ArrayList <String>itemsList = new ArrayList<String>();
 		File meeting_folder = new File(Tools.items_directory);
 		LinearLayout containerList = (LinearLayout) findViewById(R.id.list_list);
-		for (File inFile : meeting_folder.listFiles()) 
+		 File[] listItems_tmp = meeting_folder.listFiles();
+		 File[] listItems = new File[listItems_tmp.length + 1];
+		 listItems[0] = new File("Windchill-Local.xml");
+		 for(int i = 0; i<listItems_tmp.length; i++)
+		 {
+			 listItems[i+1] = listItems_tmp[i];
+		 }
+		 
+		boolean tmp = true;
+		for (File inFile : listItems) 
 		{
-				
-				LinearLayout LL = new LinearLayout(this);
-				ListView newList = new ListView(this);
-				TextView txt= new TextView(this);
-				
-				
-		    	LayoutParams lp1 = new LayoutParams(new ViewGroup.MarginLayoutParams(200,400));
-		    	LayoutParams lp2 = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
-		    	LayoutParams lp3 = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
-		    	
-		    	LL.setLayoutParams(lp1);
-		    	newList.setLayoutParams(lp3);
-		    	txt.setLayoutParams(lp2);
-		    	
-		    	LL.setOrientation(LinearLayout.VERTICAL);
-		    	
-		    	newList.setTextAlignment(View.TEXT_ALIGNMENT_GRAVITY);
-		    	newList.setClickable(true);
-		    	ListItem list = new ListItem(inFile.getName());
-		    	txt.setText(list.getListName());
-		    	txt.setTextSize(25);
-		    	//LL.setGravity(Gravity.CENTER_HORIZONTAL);
-		    	
-		    	CustomList cl = new CustomList(this, newList, list.getListColor(),list.getListName());
-		    	for(Item item:list.getList())
-		    	{
-		    		cl.addItem(item.toString());
-		    	}
-		    	
-		    	LL.addView(txt);
-		    	LL.addView(newList);
-		    	
-		    	
-		    	containerList.addView(LL);
-		    	ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) LL.getLayoutParams();
-		    	mlp.setMargins(10, 0, 10, 0);
-		    	//creer la listView
-		    	listList.add(cl);
-		    	newList.setOnItemClickListener(this);
-		    
+				ListItem list = new ListItem(inFile.getName(),tmp);
+				tmp = false;
+				if(list.getList().size()>0)
+				{
+					LinearLayout LL = new LinearLayout(this);
+					ListView newList = new ListView(this);
+					TextView txt= new TextView(this);
+					
+					
+			    	LayoutParams lp1 = new LayoutParams(new ViewGroup.MarginLayoutParams(200,400));
+			    	LayoutParams lp2 = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+			    	LayoutParams lp3 = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+			    	
+			    	LL.setLayoutParams(lp1);
+			    	newList.setLayoutParams(lp3);
+			    	txt.setLayoutParams(lp2);
+			    	
+			    	LL.setOrientation(LinearLayout.VERTICAL);
+			    	
+			    	newList.setTextAlignment(View.TEXT_ALIGNMENT_GRAVITY);
+			    	newList.setClickable(true);
+			    	
+			    	txt.setText(list.getListName());
+			    	txt.setTextSize(25);
+			    	//LL.setGravity(Gravity.CENTER_HORIZONTAL);
+			    	
+			    	CustomList cl = new CustomList(this, newList, list.getListColor(),list.getListName());
+			    	for(Item item:list.getList())
+			    	{
+			    		cl.addItem(item.toString());
+			    	}
+			    	
+			    	LL.addView(txt);
+			    	LL.addView(newList);
+			    	
+			    	
+			    	containerList.addView(LL);
+			    	ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) LL.getLayoutParams();
+			    	mlp.setMargins(10, 0, 10, 0);
+			    	//creer la listView
+			    	listList.add(cl);
+			    	newList.setOnItemClickListener(this);
+				}
 		}
 			
 	}

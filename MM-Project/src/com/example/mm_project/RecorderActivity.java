@@ -265,7 +265,7 @@ public class RecorderActivity extends Activity implements RadioGroup.OnCheckedCh
     		RecorderActivity.lastWhoSpeaked = radioButton.getText().toString();
 			
     		state_play = 2;
-			ImageView img = (ImageView)findViewById(R.id.imgView);
+    		ImageView img = (ImageView)findViewById(R.id.imgView);
 			img.setImageResource(R.drawable.stop);
 			startRecording();
 			chronometer = (Chronometer) findViewById(R.id.chronometer);
@@ -302,7 +302,11 @@ public class RecorderActivity extends Activity implements RadioGroup.OnCheckedCh
         rg1 = (RadioGroup) findViewById(R.id.items_list_attendees);
         
         int count = rg1.getChildCount();
-        
+        if(count == 0)
+        {
+        	Toast.makeText(RecorderActivity.this, "Add somme attendees first..", Toast.LENGTH_SHORT).show();
+        	return;
+        }
         final CharSequence[] items = {};
         final ArrayList<String> listOfRadioButtons = new ArrayList<String>();
         for (int i=0;i<count;i++) {
@@ -320,6 +324,8 @@ public class RecorderActivity extends Activity implements RadioGroup.OnCheckedCh
             
             currentMeeting.setRepporter(reporter);
             state_play = 1;
+            
+			
         }
         });
         

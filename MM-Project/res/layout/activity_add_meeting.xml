@@ -84,25 +84,31 @@
 						            android:layout_gravity="center_vertical"
 						            android:textAppearance="?android:attr/textAppearanceLarge"
 						            />
-                                <TimePicker
-                                    android:id="@+id/timePicker1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:paddingLeft="130dp"
-                                    android:layout_gravity="center_horizontal"/>
+                                			<Button
+								            android:id="@+id/buttonDate"
+								            style="@style/AppTheme"
+								            android:layout_marginLeft="145dp"
+								            android:layout_width="300dp"
+								            android:layout_height="wrap_content"
+								            android:text="Choose a Date"
+								            android:onClick="chooseDate"
+								             />
+                              				<Button
+								            android:id="@+id/buttonTime"
+								            style="@style/AppTheme"
+								            android:layout_width="300dp"
+								            android:layout_height="wrap_content"
+								            android:text="Choose a Time"
+								            android:onClick="chooseTime"
+								             />
 
-	    <DatePicker
-	        android:id="@+id/dpResult"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:paddingLeft="130dp"
-	        android:layout_gravity="right"/>
 
             </TableRow>
 	        <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:orientation="horizontal"
+                    android:layout_marginTop="50dp"
                     android:weightSum="2.0">
 
 	                  <LinearLayout

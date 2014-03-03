@@ -1,0 +1,46 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="400dp"
+    android:layout_height="match_parent"
+    android:padding="40dp"
+    android:orientation="vertical"
+    tools:context=".LoginWindchill" >
+
+			<EditText
+                android:id="@+id/uri"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:hint="Server URL"
+                android:inputType="textUri"
+                android:maxLines="1"
+                android:singleLine="true" />
+            <EditText
+                android:id="@+id/login"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:hint="login"
+                android:inputType="textUri"
+                android:maxLines="1"
+                android:singleLine="true" />
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_password"
+                android:imeActionId="@+id/login"
+                android:imeActionLabel="@string/action_sign_in_short"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+            <Button
+                android:id="@+id/sign_in_button"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
+                android:onClick="signIn"
+                android:text="@string/action_sign_in_register" />
+
+</LinearLayout>

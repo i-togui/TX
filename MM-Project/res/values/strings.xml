@@ -12,5 +12,7 @@
     <string name="title_activity_web">WebActivity</string>
     <string name="title_activity_recorder">RecorderActivity</string>
     <string name="title_activity_tag">TagActivity</string>
+    <string name="title_activity_manage_wc_items">ManageWcItems</string>
+    <string name="title_activity_login_windchill">LoginWindchill</string>
 
 </resources>

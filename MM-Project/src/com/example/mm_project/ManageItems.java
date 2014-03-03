@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -40,6 +41,7 @@ public class ManageItems extends Activity implements OnColorChangedListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_manage_items);
+		
 		b = (Button) findViewById(R.id.btnColor);
 		adapterListeItems=new ArrayAdapter<String>(this,
 	            android.R.layout.simple_list_item_1,
@@ -50,7 +52,8 @@ public class ManageItems extends Activity implements OnColorChangedListener {
 		
 		ListView lvListeListe = (ListView)findViewById(R.id.items_list_list);
 	    lvListeListe.setAdapter(adapterListeListe);
-		ListView lvListeItems = (ListView)findViewById(R.id.items_list_items);
+		
+	    ListView lvListeItems = (ListView)findViewById(R.id.items_list_items);
 		lvListeItems.setAdapter(adapterListeItems);
 	    updateListeListe();
 
@@ -147,6 +150,7 @@ public class ManageItems extends Activity implements OnColorChangedListener {
 				if(i.getListName() == t.getText())
 				{
 					i.addItem(text.getText().toString());
+					text.setText("");
 					break;
 				}
 			}

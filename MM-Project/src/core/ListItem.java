@@ -33,6 +33,7 @@ public class ListItem
 	String listName;
 	int listColor;
 	String fileName;
+	boolean extra = false;
 	ArrayList<Item> list = new ArrayList<Item>();
 
 	XmlPullParserFactory pullParserFactory;
@@ -43,16 +44,26 @@ public class ListItem
 		this.listColor = listColor;
 		save();
 	}
+	public ListItem(String listName, int listColor, boolean b) 
+	{
+		this.listName = listName;
+		this.listColor = listColor;
+		this.extra = b;
+		save();
+	}
 	
 	public ListItem(String listName) 
 	{
 		load(listName);
 	}
-//	public ListItem() 
-//	{
-//		super();
-//	}
+
 	
+	public ListItem(String listName2, boolean b) {
+		this.extra = b;
+		load(listName2);
+
+	}
+
 	//Core Functions
 	public void addItem(String data)
 	{
@@ -68,14 +79,16 @@ public class ListItem
 	{
 		int tmp = findItem(data);
 		if (tmp > -1)
-			this.list.remove(tmp);
-		save();
+			{	
+				this.list.remove(tmp);
+				save();
+			}
 	}
 	public int findItem(String data)
 	{
 		for (int i=0;i<list.size();i++)
 		{
-			if (list.get(i).toString() == data ) 
+			if (list.get(i).toString().compareTo(data) == 0 ) 
 				return i;
 		}
 		return -1;
@@ -88,7 +101,17 @@ public class ListItem
 	}
 	public boolean load(String listName)
 	{
-		File item = new File(ListItem.files_directory + "/" + listName);
+		File item;
+		String ext;
+		if(listName.endsWith(".xml"))
+			ext = "";
+		else
+			ext = ".xml";
+		if(this.extra == false)
+			item = new File(ListItem.files_directory + "/" + listName + ext);
+		else
+			item = new File(Tools.extra_directory + "/" + listName + ext);
+		
 		if (item.canRead())
 		{
 			try {
@@ -126,7 +149,12 @@ public class ListItem
 
 	public boolean save()
 	{
-		 File item_folder = new File(ListItem.files_directory);
+		
+		 File item_folder;
+		 if(this.extra == false)
+			 item_folder = new File(ListItem.files_directory);
+		 else
+			 item_folder = new File(Tools.extra_directory);
 		 item_folder.mkdirs();
 		 XmlSerializer serializer = Xml.newSerializer();
 		 StringWriter writer = new StringWriter();

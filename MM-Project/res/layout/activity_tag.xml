@@ -100,6 +100,8 @@
 	            android:gravity="center_horizontal"
 	            android:layout_weight="1.0"
 	            android:text="Comment"
+	            android:singleLine="true"
+	            android:scrollbars ="horizontal"
 	            android:layout_marginBottom="20dp"
 	            android:textAppearance="?android:attr/textAppearanceLarge"/>
 				<ListView
@@ -114,7 +116,9 @@
 			<HorizontalScrollView
 			android:layout_width="730dp"
 			android:background="@drawable/border"
-	    	android:layout_height="480dp">
+			android:padding="10dp"
+			android:layout_margin="10dp"
+			android:layout_height="450dp">
 				<LinearLayout
 			    android:id="@+id/list_list"
 				android:layout_width="730dp"

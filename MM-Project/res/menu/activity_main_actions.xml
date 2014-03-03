@@ -29,6 +29,7 @@
 	            android:id="@+id/action_manage"
 	            android:icon="@drawable/ic_action_edit"
 	            android:title="Manage Items"/>
+	       
 		 <!-- About -->
 		    <item android:id="@+id/action_about"
 		          android:icon="@drawable/ic_action_about"

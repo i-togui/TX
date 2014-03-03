@@ -1,37 +1,37 @@
 package com.example.mm_project;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import com.example.mm_project.ColorPickerDialog.OnColorChangedListener;
 
-import core.DummyContent;
-import core.Meeting;
-import core.Tools;
-import core.DummyContent.DummyItem;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore.Files;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.mm_project.ColorPickerDialog.OnColorChangedListener;
+
+import core.DummyContent;
+import core.DummyContent.DummyItem;
+import core.Meeting;
+import core.Tools;
 
 /**
  * An activity representing a list of Meetings. This activity has different
@@ -61,8 +61,9 @@ public class MeetingListActivity extends FragmentActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.activity_meeting_list);
-
+	
 		if (findViewById(R.id.meeting_detail_container) != null) {
 			// The detail container view will be present only in the
 			// large-screen layouts (res/values-large and
@@ -77,9 +78,27 @@ public class MeetingListActivity extends FragmentActivity implements
 					.setActivateOnItemClick(true);
 		}
 
-		// TODO: If exposing deep links into your app, handle intents here.
+		initFiles();
 	}
 
+
+	
+	void initFiles()
+	{
+		File item_folder = new File(Tools.meetings_directory);
+		if(!item_folder.exists()) item_folder.mkdirs();
+		File extra_folder = new File(Tools.extra_directory);
+		if(!extra_folder.exists()) 
+			{
+				extra_folder.mkdirs();
+			}
+		File items_folder = new File(Tools.items_directory);
+		if(!items_folder.exists()) 
+			{
+			items_folder.mkdirs();
+			}
+		
+	}
 	/**
 	 * Callback method from {@link MeetingListFragment.Callbacks} indicating
 	 * that the item with the given ID was selected.
@@ -114,27 +133,6 @@ public class MeetingListActivity extends FragmentActivity implements
 	    }
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public static void refresh()
 	{
 		
@@ -151,7 +149,6 @@ public class MeetingListActivity extends FragmentActivity implements
 			MeetingListFragment.adapterListe.notifyDataSetChanged();
 			
 			
-//			Log.ERROR(""+this.get .getListAdapter().getCount(),""+MeetingListFragment.this.getListAdapter().getCount());
 			
 	}
 	public static void deSelect(Activity activity)
@@ -197,19 +194,26 @@ public class MeetingListActivity extends FragmentActivity implements
 	    	intent=new Intent(getApplicationContext(), ManageItems.class);
 			startActivity(intent);
 			break;
-	    case R.id.action_about:
-	    	Uri uri  = Uri.parse("file://"+Tools.extra_directory+"/rapport.pdf");
-			try
-			{
-			    Intent intentUrl = new Intent(Intent.ACTION_VIEW);
-			    intentUrl.setDataAndType(uri, "application/pdf");
-			    intentUrl.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			    startActivity(intentUrl);
-			}
-			catch (ActivityNotFoundException e)
-			{
-			    //Toast.makeText(getApplicationContext(), "No PDF Viewer Installed", Toast.LENGTH_LONG).show();
-			}
+			
+/**
+ *  ADD first to Menu
+ *   <item android:id="@+id/action_manage_wc"
+		          android:icon="@drawable/ic_action_edit"
+		          android:title="Windchill Configuration"
+		          android:showAsAction="ifRoom"/>
+
+ * 
+	    case R.id.action_manage_wc:
+	    	intent=new Intent(getApplicationContext(), ManageWcItems.class);
+			startActivity(intent);
+			break;
+
+	   **/
+		case R.id.action_about:
+	    	intent=new Intent(getApplicationContext(), WebActivity.class);
+	    	intent.putExtra("title", "Github Page");
+	    	intent.putExtra("url", "https://github.com/i-togui/TX");
+			startActivity(intent);
     	  break;
 	    default:
 	    	deSelect(this);
@@ -252,6 +256,5 @@ public class MeetingListActivity extends FragmentActivity implements
 	@Override
 	public void colorChanged(int color) {
 		// TODO Auto-generated method stub
-		Log.e("color", "" +color);
 	}
 }

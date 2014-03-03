@@ -16,9 +16,6 @@ public class Tools {
 	{
 	    Log.e("stuff", data);
 	}
-	/**
-	 * @param args
-	 */
 	public void addCal()
 	{
 		Calendar cal = Calendar.getInstance();              
@@ -39,37 +36,8 @@ public class Tools {
         shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, seq);
         shareIntent.setType("application/pdf");
 
-        shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, null);//pdfFiles
-//        startActivity(Intent.createChooser(shareIntent, "getText(R.string.share_chooser_title)"));
-        //pdfFiles is of type ArrayList<Uri>.
+        shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, null);
         
-        
-        
-        /*OR
-         * 
-Intent intent = new Intent(Intent.ACTION_SEND);
-intent.setType("text/plain");
-intent.putExtra(Intent.EXTRA_EMAIL, new String[] {"email@example.com"});
-intent.putExtra(Intent.EXTRA_SUBJECT, "subject here");
-intent.putExtra(Intent.EXTRA_TEXT, "body text");
-File root = Environment.getExternalStorageDirectory();
-File file = new File(root, xmlFilename);
-if (!file.exists() || !file.canRead()) {
-    Toast.makeText(this, "Attachment Error", Toast.LENGTH_SHORT).show();
-    finish();
-    return;
-}
-
-Uri uri = Uri.fromFile(file);
-intent.putExtra(Intent.EXTRA_STREAM, uri);
-startActivity(Intent.createChooser(intent, "Send email..."));
-         * 
-         */
-        
-	}
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

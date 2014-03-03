@@ -52,7 +52,7 @@ public class Meeting {
 	String directoryName;
 	ArrayList<Attendee> attendeesList;
 	ArrayList<Question> questionsList;
-	ArrayList<Sequence> sequencesList;
+	public ArrayList<Sequence> sequencesList;
 	int state;
 	Mp3Recorder recorder;
 	XmlSerializer serializer = Xml.newSerializer();
@@ -442,7 +442,6 @@ public class Meeting {
 	public void save_sequence(String currentOffset, ArrayList<String> listeItems) 
 	{
 		try {
-				Log.e("eeeeeeeee"+currentOffset,">>"+listeItems);
 				DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 				Document doc = docBuilder.parse(new File(Tools.meetings_directory + "/" + this.directoryName + "/AudioSequences.xml"));

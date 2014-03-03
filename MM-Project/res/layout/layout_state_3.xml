@@ -14,14 +14,14 @@
             android:gravity="center_vertical"
 			android:textSize="40sp"
             android:textAppearance="?android:attr/textAppearanceLarge"/>
+      		
             <ImageView 
             android:id="@+id/viewRepport"
 		    android:layout_width="130dp"
 	        android:layout_height="130dp"
 	        android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
-            android:layout_marginLeft="210dp"
-	        android:src="@drawable/ic_action_view_as_list"
+            android:src="@drawable/ic_action_view_as_list"
 	        android:onClick="viewRepport"/>
 			<ImageView 
 		    android:layout_width="130dp"
