@@ -2,7 +2,7 @@ package core;
 
 import java.util.Calendar;
 
-import com.example.mm_project.R;
+import mmreport.ui.R;
 
 import android.content.Intent;
 import android.text.Html;

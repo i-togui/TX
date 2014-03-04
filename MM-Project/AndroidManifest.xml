@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.mm_project"
+    package="mmreport.ui"
     android:uiOptions="splitActionBarWhenNarrow"
     android:versionCode="1"
     android:versionName="1.0" >
@@ -25,7 +25,7 @@
         android:theme="@style/AppTheme"
         android:uiOptions="splitActionBarWhenNarrow" >
         <activity
-            android:name="com.example.mm_project.MeetingListActivity"
+            android:name="mmreport.ui.MeetingListActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:screenOrientation="landscape" >
@@ -36,17 +36,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.mm_project.MeetingDetailActivity"
+            android:name="mmreport.ui.MeetingDetailActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_meeting_detail"
-            android:parentActivityName=".MeetingListActivity"
+            android:parentActivityName="mmreport.ui.MeetingListActivity"
             android:screenOrientation="landscape" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MeetingListActivity" />
         </activity>
         <activity
-            android:name="com.example.mm_project.AddMeeting"
+            android:name="mmreport.ui.AddMeeting"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_add_meeting"
             android:screenOrientation="landscape"
@@ -54,34 +54,34 @@
             android:windowSoftInputMode="adjustPan|stateHidden" >
         </activity>
         <activity
-            android:name="com.example.mm_project.ManageItems"
+            android:name="mmreport.ui.ManageItems"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_manage_items"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
-            android:name="com.example.mm_project.ColorPickerDialog"
+            android:name="mmreport.ui.ColorPickerDialog"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_color_picker_dialog"
             android:screenOrientation="landscape" >
         </activity>
         <activity
-            android:name="com.example.mm_project.WebView"
+            android:name="mmreport.ui.WebView"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_web_view"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
-            android:name="com.example.mm_project.WebActivity"
+            android:name="mmreport.ui.WebActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_web"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
-            android:name="com.example.mm_project.RecorderActivity"
+            android:name="mmreport.ui.RecorderActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_recorder"
             android:screenOrientation="landscape"
@@ -89,25 +89,25 @@
             android:windowSoftInputMode="adjustPan|stateHidden" >
         </activity>
         <activity
-            android:name="com.example.mm_project.TagActivity"
+            android:name="mmreport.ui.TagActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_tag"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
-            android:name="com.example.mm_project.ManageWcItems"
+            android:name="mmreport.ui.ManageWcItems"
             android:label="@string/title_activity_manage_wc_items"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
-            android:name="com.example.mm_project.LoginWc"
+            android:name="mmreport.ui.LoginWc"
             android:label="@string/title_activity_login_wc"
             android:windowSoftInputMode="adjustResize|stateVisible"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
-            android:name="com.example.mm_project.LoginWindchill"
+            android:name="mmreport.ui.LoginWindchill"
             android:label="@string/title_activity_login_windchill"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
