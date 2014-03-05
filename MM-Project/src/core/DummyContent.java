@@ -27,9 +27,12 @@ public class DummyContent {
 	static {
 		// Add 3 sample items.
 		ListeMeetingDirectory = Meeting.getMeetingsListDirectory();	
-		for (String meeting : ListeMeetingDirectory) 
+		if(ListeMeetingDirectory != null)
 		{
-			addItem(new DummyItem(meeting));
+			for (String meeting : ListeMeetingDirectory) 
+			{
+				addItem(new DummyItem(meeting));
+			}
 		}
 		
 	}

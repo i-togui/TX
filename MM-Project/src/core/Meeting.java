@@ -912,14 +912,17 @@ public class Meeting {
 	{
 		ArrayList <String>meetingsId = new ArrayList<String>();
 		File meeting_folder = new File(Tools.meetings_directory);
-		
-		for (File inFile : meeting_folder.listFiles()) 
+		if(meeting_folder.canRead())
 		{
-		    if (inFile.isDirectory()) {
-		    	meetingsId.add(inFile.getName());
-		    }
+			for (File inFile : meeting_folder.listFiles()) 
+			{
+			    if (inFile.isDirectory()) {
+			    	meetingsId.add(inFile.getName());
+			    }
+			}
+			return meetingsId;
 		}
-		return meetingsId;
+		return null;
 	}
 	public static ArrayList getMeetingsListName(ArrayList list)
 	{
