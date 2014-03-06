@@ -143,7 +143,10 @@ public class AddMeeting extends Activity
 		}
 		return null;
 	}
-	
+	public void closeAct(View v)
+	{
+		this.finish();
+	}
 	private TimePickerDialog.OnTimeSetListener timePickerListener = 
             new TimePickerDialog.OnTimeSetListener() {
 		public void onTimeSet(TimePicker view, int selectedHour,

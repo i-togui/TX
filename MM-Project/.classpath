@@ -3,16 +3,16 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
-	<classpathentry kind="lib" path="/home/itogui/Documents/300 lesions(2004)/itext-pdfa-5.4.5-sources.jar"/>
-	<classpathentry kind="lib" path="/home/itogui/Documents/300 lesions(2004)/itext-pdfa-5.4.5.jar"/>
-	<classpathentry kind="lib" path="/home/itogui/Documents/300 lesions(2004)/itext-xtra-5.4.5.jar"/>
-	<classpathentry kind="lib" path="/home/itogui/Documents/300 lesions(2004)/itext-xtra-5.4.5-sources.jar"/>
-	<classpathentry kind="lib" path="/home/itogui/Documents/300 lesions(2004)/itext-pdfa-5.4.5-javadoc.jar"/>
-	<classpathentry kind="lib" path="/home/itogui/Documents/300 lesions(2004)/itext-xtra-5.4.5-javadoc.jar"/>
-	<classpathentry kind="lib" path="/home/itogui/Documents/300 lesions(2004)/itextpdf-5.4.5.jar"/>
-	<classpathentry kind="lib" path="/home/itogui/Documents/300 lesions(2004)/itextpdf-5.4.5-sources.jar"/>
-	<classpathentry kind="lib" path="/home/itogui/Documents/300 lesions(2004)/itextpdf-5.4.5-javadoc.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="lib" path="/home/elotro/extra_lib/itextpdf-5.4.5.jar"/>
+	<classpathentry kind="lib" path="/home/elotro/extra_lib/itextpdf-5.4.5-javadoc.jar"/>
+	<classpathentry kind="lib" path="/home/elotro/extra_lib/itextpdf-5.4.5-sources.jar"/>
+	<classpathentry kind="lib" path="/home/elotro/extra_lib/itext-pdfa-5.4.5.jar"/>
+	<classpathentry kind="lib" path="/home/elotro/extra_lib/itext-pdfa-5.4.5-javadoc.jar"/>
+	<classpathentry kind="lib" path="/home/elotro/extra_lib/itext-pdfa-5.4.5-sources.jar"/>
+	<classpathentry kind="lib" path="/home/elotro/extra_lib/itext-xtra-5.4.5.jar"/>
+	<classpathentry kind="lib" path="/home/elotro/extra_lib/itext-xtra-5.4.5-javadoc.jar"/>
+	<classpathentry kind="lib" path="/home/elotro/extra_lib/itext-xtra-5.4.5-sources.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

@@ -212,11 +212,14 @@ public class ListItem
 	{
 		ArrayList <String>meetingsId = new ArrayList<String>();
 		File meeting_folder = new File(Tools.items_directory);
-		for (File inFile : meeting_folder.listFiles()) 
+		if(meeting_folder != null)
 		{
-		    meetingsId.add(inFile.getName());
+			for (File inFile : meeting_folder.listFiles()) 
+			{
+			    meetingsId.add(inFile.getName());
+			}
 		}
-		return meetingsId;
+		return meetingsId; 
 	}
 	public static boolean removeMeeting(String name)
 	{

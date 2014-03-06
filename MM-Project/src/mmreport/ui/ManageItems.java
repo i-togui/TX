@@ -132,9 +132,10 @@ public class ManageItems extends Activity implements OnColorChangedListener {
 		{
 			ListeListe.add(text.getText().toString());
 			adapterListeListe.notifyDataSetChanged();
-			text.setText("");
 			ListItem l = new ListItem(text.getText().toString(),-16056065);
 			Listee.add(l);
+			text.setText("");
+			
 		}
 		else 
 			Toast.makeText(getApplicationContext(), "Forbiden action:empty field", Toast.LENGTH_LONG).show();
